@@ -353,7 +353,7 @@ class InvestigationController {
 		// set work variables
 		def errors		= false
 		def number		= params.get('addNumber') as int
-		def species		= Term.findByNameAndOntology(params.get('species'),TemplateEntity.getField(Animal.domainFields, 'species').ontologies[0])
+		def species		= Term.findByNameAndOntology(params.get('species'),TemplateEntity.getField(Animal.domainFields, 'species').ontologies.asList()[0])
 		def template	= Template.findByName(params.get('template'))
 		println "This resulted in species ${species}"
 		// can we add animals?
@@ -367,7 +367,7 @@ class InvestigationController {
 
 				// make sure animal name is unique
 				if (flow.investigation.animals) {
-					while (flow.investigation.animals.find { it.name == tempAnimalName }) {
+					while (flow.investigation.animals.find { it.customId == tempAnimalName }) {
 						animalIterator++
 						tempAnimalName = animalName + animalIterator
 					}

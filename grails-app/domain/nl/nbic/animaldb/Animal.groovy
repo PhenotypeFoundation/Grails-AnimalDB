@@ -3,6 +3,8 @@ package nl.nbic.animaldb
 import org.dbnp.gdt.*
 
 class Animal extends TemplateEntity {
+
+	String customId
 	Term species
 
 	// an animal belongs to an investigation, this
