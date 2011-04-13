@@ -88,25 +88,25 @@ class InvestigationController {
 				flow.page = 1
 				success()
 			}
-			on("next").to "pageOne"
+			on("next").to "investigation"
 		}
 
 		// first wizard page
-		pageOne {
-			render(view: "_page_one")
+		investigation {
+			render(view: "_investigation")
 			onRender {
 				// Grom a development message
-				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial: pages/_page_one.gsp".grom()
+				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial: pages/_investigation.gsp".grom()
 
 				flow.page = 1
 				success()
 			}
 			on("refresh") {
 				success()
-			}.to "pageOne"
+			}.to "investigation"
 			on("switchTemplate") {
 				success()
-			}.to "pageOne"
+			}.to "investigation"
 			on("next") {
 				// put your bussiness logic (if applicable) in here
 			}.to "pageTwo"
@@ -136,8 +136,8 @@ class InvestigationController {
 				success()
 			}
 			on("next").to "pageThree"
-			on("previous").to "pageOne"
-			on("toPageOne").to "pageOne"
+			on("previous").to "investigation"
+			on("toPageOne").to "investigation"
 			on("toPageThree").to "pageThree"
 			on("toPageFour").to "pageFour"
 			on("toPageFive") {
@@ -157,7 +157,7 @@ class InvestigationController {
 			}
 			on("next").to "pageFour"
 			on("previous").to "pageTwo"
-			on("toPageOne").to "pageOne"
+			on("toPageOne").to "investigation"
 			on("toPageTwo").to "pageTwo"
 			on("toPageFour").to "pageFour"
 			on("toPageFive") {
@@ -180,7 +180,7 @@ class InvestigationController {
 				flow.page = 5
 			}.to "save"
 			on("previous").to "pageThree"
-			on("toPageOne").to "pageOne"
+			on("toPageOne").to "investigation"
 			on("toPageTwo").to "pageTwo"
 			on("toPageThree").to "pageThree"
 			on("toPageFive") {
@@ -225,7 +225,7 @@ class InvestigationController {
 			}
 			on("next").to "save"
 			on("previous").to "pageFour"
-			on("toPageOne").to "pageOne"
+			on("toPageOne").to "investigation"
 			on("toPageTwo").to "pageTwo"
 			on("toPageThree").to "pageThree"
 			on("toPageFour").to "pageFour"
