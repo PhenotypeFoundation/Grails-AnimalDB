@@ -13,6 +13,12 @@ class Animal extends TemplateEntity {
 	static belongsTo = [ investigation: Investigation ]
 
 	static constraints = {
+
+	// Check if the customId is really unique within the parent investigation of this animal.
+	// This feature is tested by integration test SampleTests.testSampleUniqueNameConstraint
+	customId(unique:['investigation'], nullable: false, blank: false)
+	species(nullable: false)
+
 	}
 
 	/**
@@ -33,6 +39,13 @@ class Animal extends TemplateEntity {
 	// We have to specify an ontology list for the species property. However, at compile time, this ontology does of course not exist.
 	// Therefore, the ontology is added at runtime in the bootstrap, possibly downloading the ontology properties if it is not present in the database yet.
 	static List<TemplateField> domainFields = [
+
+		new TemplateField(
+			name: 'customId',
+			type: TemplateFieldType.STRING,
+			comment: 'Unique string to identify an animal within an investigation',
+			required: true),
+
 		new TemplateField(
 			name: 'species',
 			type: TemplateFieldType.ONTOLOGYTERM,
