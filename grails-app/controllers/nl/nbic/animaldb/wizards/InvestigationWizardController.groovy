@@ -201,6 +201,10 @@ class InvestigationWizardController {
 				// handle form data
 				animalPage(flow, flash, params) ? success() : error()
 			}.to "save"
+			on("toPageOne") {
+				// handle form data
+				animalPage(flow, flash, params) ? success() : error()
+			}.to "investigation"
 			on("toPageThree") {
 				// handle form data
 				animalPage(flow, flash, params) ? success() : error()
