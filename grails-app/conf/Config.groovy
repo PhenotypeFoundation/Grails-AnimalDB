@@ -88,3 +88,6 @@ log4j = {
 
     warn   'org.mortbay.log'
 }
+
+// jquery plugin
+grails.views.javascript.library = "jquery"
