@@ -36,7 +36,7 @@ option.unlocked {
 
 
 /* START :: header */
-.header {
+.pageHeader {
 	margin-bottom: 40px;
 	border-bottom: 2px solid black;
 	height: 77px;
@@ -44,14 +44,14 @@ option.unlocked {
 	background: #f8f8f8 url(../images/hackaton.png) no-repeat left top;
 }
 
-.header .content {
+.pageHeader .content {
 	display: inline-block;
 	margin-left: 500px;
-	margin-top: 40px;
-	font: 24px verdana, arial, helvetica, sans-serif;
+	margin-top: 34px;
+	font: 30px verdana, arial, helvetica, sans-serif;
 }
 
-.header .content a:link, .header .content a:visited, .header .content a:hover {
+.pageHeader .content a:link, .pageHeader .content a:visited, .pageHeader .content a:hover {
 	color: #666;
 	border-bottom: 2px dashed red;
 	text-decoration: none;
@@ -59,7 +59,7 @@ option.unlocked {
 /* END :: header */
 
 /* START :: footer */
-.footer {
+.pageFooter {
 	margin-top: 40px;
 	border-top: 2px solid black;
 	height: 77px;
@@ -68,15 +68,35 @@ option.unlocked {
 	background: #f8f8f8 url(../images/grails_logo.png) no-repeat left center;
 }
 
-.footer .content {
+.pageFooter .content {
 	display: inline-block;
 	color: #006dba;
 	margin-top: 32px;
 	margin-left: 200px;
-	width: 100%;
+	width: 80%;
 }
 
-.footer .content a:link, .footer .content a:visited, .footer .content a:hover {
+.pageFooter .content a:link, .pageFooter .content a:visited, .pageFooter .content a:hover {
+	color: #006dba;
+	border-bottom: 1px dotted red;
+	text-decoration: none;
+}
+
+.pageFooter .links {
+	width: 300px;
+	display: inline-block;
+	float: right;
+	margin-top: -55px;
+	text-align: right;
+}
+
+.pageFooter .links ul {
+	list-style: none;
+	margin-right: 5px;
+	font-size:8px;
+}
+
+.pageFooter .links ul li a:link, .pageFooter .links ul li a:visited, .pageFooter .links ul li a:hover {
 	color: #006dba;
 	border-bottom: 1px dotted red;
 	text-decoration: none;

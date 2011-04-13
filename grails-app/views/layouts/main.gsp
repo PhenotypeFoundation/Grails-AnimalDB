@@ -11,14 +11,24 @@
 	<link rel="stylesheet" href="${createLinkTo(dir: 'css/cupertino', file: 'jquery-ui-1.8.7.custom.css')}"/>
 </head>
 <body>
-<div class="header">
+<div class="pageHeader">
 	<div class="content">Capturing <a href="http://www.animaldb.org/wiki/AnimaldbStart" target="_new">Animal DB</a> in <a href="http://www.grails.org" target="_new">Grails</a></div>
 </div>
 <g:layoutBody/>
-<div class="footer">
+<div class="pageFooter">
 	<div class="content">
 		Copyright © 2008 - <g:formatDate format="yyyy" date="${new Date()}"/> NBIC, AnimalDB and Netherlands Metabolomics Center. All rights reserved. More information can be found <a href="https://wiki.nbic.nl/index.php/GSCF_and_Molgenis_Hackathon_project">here</a>.
 	</div>
+	<div class="links">
+		<ul><b>Powered by:</b>
+			<li><a href="http://groovy.codehaus.org/" target="_new">Groovy</a> & <a href="http://www.grails.org" target="_new">Grails</a></li>
+			<li><a href="http://www.grails.org/plugin/ajaxflow" target="_new">AjaxFlow</a></li>
+			<li><a href="https://trac.nbic.nl/grails-plugins/browser/gdt/trunk" target="_new">Grails Domain Templates (GDT)</a></li>
+			<li><a href="https://trac.nbic.nl/grails-plugins/browser/gdtimporter/trunk" target="_new">GDT Importer</a></li>
+			<li><a href="http://www.youtube.com/watch?v=KsBa-bSGlvU" target="_new">Beer</a> & <a href="http://www.youtube.com/watch?v=bZRiGjqVAlY" target="_new">Red Bull</a></li>
+		</ul>
+	</div>
+
 </div>
 </body>
 </html>
