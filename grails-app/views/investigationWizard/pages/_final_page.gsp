@@ -14,6 +14,6 @@
 <af:page>
 <h1>Final Page</h1>
 <p>
-This concludes the example wizard. You can click <g:link action="index">here</g:link> to restart the wizard.
+Your study has been saved. You can now <g:link controller="investigation" action="show" id="${investigation.id}">view the study</g:link> or click <g:link action="index">here</g:link> to add another investigation.
 </p>
 </af:page>
