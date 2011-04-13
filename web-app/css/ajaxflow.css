@@ -62,20 +62,20 @@
 	vertical-align: top;
 }
 .ajaxFlow .tabs li:last-child:after {
-	content: url('../images/investigation/spacer.gif');
+	content: url('../images/ajaxflow/spacer.gif');
 }
 .ajaxFlow .tabs li:first-child:before {
-	content: url('../images/investigation/spacer.gif');
+	content: url('../images/ajaxflow/spacer.gif');
 }
 .ajaxFlow .tabs li:before {
-	content:url(../images/investigation/arrowR.gif);
+	content:url(../images/ajaxflow/arrowR.gif);
 	position:inherit;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	display:inline;
 }
 .ajaxFlow .tabs li:after {
-	content:url(../images/investigation/arrowL.gif);
+	content:url(../images/ajaxflow/arrowL.gif);
 	position:inherit;
 	margin-top: 0px;
 	margin-bottom: 0px;
@@ -191,7 +191,7 @@
     text-align: center;
 }
 .ajaxFlow .waiter .wait .spinner {
-	background: url(../images/investigation/ajax-loader.gif) no-repeat center top;
+	background: url(../images/ajaxflow/ajax-loader.gif) no-repeat center top;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	display: block;
