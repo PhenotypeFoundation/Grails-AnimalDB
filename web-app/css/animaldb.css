@@ -78,6 +78,14 @@ option.unlocked {
 }
 /* END :: header */
 
+/* START :: page content */
+.pageBody {
+	margin-left: 10px;
+	margin-right: 10px;
+	width: auto;
+}
+/* END :: page content */
+
 /* START :: footer */
 .pageFooter {
 	margin-top: 40px;
@@ -110,7 +118,7 @@ option.unlocked {
 	zoom: 1; /* IE 6 & 7 hack */
 	*display: inline; /* IE 6 & 7 hack */
 	float: right;
-	margin-top: -55px;
+	margin-top: -53px;
 	text-align: right;
 }
 

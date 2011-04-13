@@ -20,7 +20,9 @@
 		<div id="twitterDate"></div>
 	</div>
 </div>
-<g:layoutBody/>
+<div class="pageBody">
+	<g:layoutBody/>
+</div>
 <div class="pageFooter">
 	<div class="content">
 		Copyright © 2008 - <g:formatDate format="yyyy" date="${new Date()}"/> NBIC, AnimalDB and Netherlands Metabolomics Center. All rights reserved. More information can be found <a href="https://wiki.nbic.nl/index.php/GSCF_and_Molgenis_Hackathon_project">here</a>.
