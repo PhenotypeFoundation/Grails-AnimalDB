@@ -1,3 +1,10 @@
+body {
+	margin: 0;
+	padding: 0;
+	font: 10px normal Arial, Helvetica, sans-serif;
+	background: #fff;
+}
+
 /* START :: special select option styles */
 option.addMore {
 	background: url(../plugins/famfamfam-1.0.1/images/icons/add.png) no-repeat left top;

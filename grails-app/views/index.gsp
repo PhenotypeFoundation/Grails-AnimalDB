@@ -2,6 +2,7 @@
     <head>
         <title>Welcome to Grails</title>
         <meta name="layout" content="main" />
+		<link rel="stylesheet" href="${resource(dir:'css',file:'grails-default.css')}" />
         <style type="text/css" media="screen">
 
         #nav {
