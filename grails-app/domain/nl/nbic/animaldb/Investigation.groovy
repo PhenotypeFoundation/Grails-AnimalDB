@@ -19,8 +19,8 @@ class Investigation extends TemplateEntity {
 	 * @param Template
 	 * @return ArrayList
 	 */
-	def ArrayList<Animal> giveAnimalsForTemplate(Template template) {
-		animals.findAll { animal -> animal.template.equals(template) }
+	def Collection<Animal> giveAnimalsForTemplate(Template template) {
+		animals.findAll { it.template.equals(template) }
 	}
 
 	/**
