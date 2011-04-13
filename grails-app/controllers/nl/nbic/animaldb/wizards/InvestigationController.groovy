@@ -62,12 +62,11 @@ class InvestigationController {
 			flow.pages = [
 				[title: 'Investigation'],
 				[title: 'Animals'],
-				[title: 'Page Three'],
-				[title: 'Page Four'],
+				[title: 'Save'],
 				[title: 'Done']
 			]
 			flow.cancel = true;
-			flow.quickSave = true;
+			flow.quickSave = false;
 
 			// instantiate a new investigation if we do not
 			// yet have an investigation
@@ -131,17 +130,10 @@ class InvestigationController {
 				investigationPage(flow, flash, params) ? success() : error()
 			}.to "animals"
 			on("toPageTwo") {
-				investigationPage(flow, flash, params) ? success() : error()
-			}.to "pageTwo"
+				animalPage(flow, flash, params) ? success() : error()
+			}.to "animals"
 			on("toPageThree") {
 				investigationPage(flow, flash, params) ? success() : error()
-			}.to "pageThree"
-			on("toPageFour") {
-				investigationPage(flow, flash, params) ? success() : error()
-			}.to "pageFour"
-			on("toPageFive") {
-				investigationPage(flow, flash, params) ? success() : error()
-				flow.page = 5
 			}.to "save"
 		}
 
@@ -181,56 +173,37 @@ class InvestigationController {
 				// handle form data
 				addAnimals(flow, flash, params) ? success() : error()
 			}.to "animals"
-			on("next").to "pageThree"
-			on("previous").to "investigation"
-			on("toPageOne").to "investigation"
-			on("toPageThree").to "pageThree"
-			on("toPageFour").to "pageFour"
-			on("toPageFive") {
-				flow.page = 5
-			}.to "save"
-		}
+			on("delete") {
+				// handle form data
+				animalPage(flow, flash, params)
 
-		// second wizard page
-		pageThree {
-			render(view: "_page_three")
-			onRender {
-				// Grom a development message
-				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial pages/_page_three.gsp".grom()
+				// reset errors
+				flash.wizardErrors = [:]
 
-				flow.page = 3
+				// remove subject
+				def animalToRemove = flow.investigation.animals.find { it.identifier == (params.get('do') as int) }
+				if (animalToRemove) {
+					// TODO: check if this really removes from animals collection
+					flow.investigation.removeFromAnimals(animalToRemove)
+					// or do we need an explicit delete() too
+					//animalToRemove.delete()
+				}
+			}.to "animals"
+			on("previous") {
+				// handle form data
+				animalPage(flow, flash, params)
+
+				// reset errors
+				flash.wizardErrors = [:]
 				success()
-			}
-			on("next").to "pageFour"
-			on("previous").to "animals"
-			on("toPageOne").to "investigation"
-			on("toPageTwo").to "animals"
-			on("toPageFour").to "pageFour"
-			on("toPageFive") {
-				flow.page = 5
-			}.to "save"
-		}
-
-		// second wizard page
-		pageFour {
-			render(view: "_page_four")
-			onRender {
-				// Grom a development message
-				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial pages/_page_four.gsp".grom()
-
-				flow.page = 4
-				success()
-			}
+			}.to "investigation"
 			on("next") {
-				// put some logic in here
-				flow.page = 5
+				// handle form data
+				animalPage(flow, flash, params) ? success() : error()
 			}.to "save"
-			on("previous").to "pageThree"
-			on("toPageOne").to "investigation"
-			on("toPageTwo").to "animals"
-			on("toPageThree").to "pageThree"
-			on("toPageFive") {
-				flow.page = 5
+			on("toPageThree") {
+				// handle form data
+				animalPage(flow, flash, params) ? success() : error()
 			}.to "save"
 		}
 
@@ -249,7 +222,7 @@ class InvestigationController {
 				} catch (Exception e) {
 					// put your error handling logic in
 					// here
-					flow.page = 4
+					flow.page = 3
 					error()
 				}
 			}
@@ -273,9 +246,7 @@ class InvestigationController {
 			on("previous").to "pageFour"
 			on("toPageOne").to "investigation"
 			on("toPageTwo").to "animals"
-			on("toPageThree").to "pageThree"
-			on("toPageFour").to "pageFour"
-			on("toPageFive").to "save"
+			on("toPageThree").to "save"
 
 		}
 

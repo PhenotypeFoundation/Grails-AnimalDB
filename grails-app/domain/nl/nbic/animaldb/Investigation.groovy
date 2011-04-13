@@ -14,6 +14,18 @@ class Investigation extends TemplateEntity {
 		name(nullable:false, blank: false, maxSize: 255)
 	}
 
+
+	void deleteAnimal(Animal animal) {
+
+		// This should remove the animal itself too, because of the cascading belongsTo relation
+		this.removeFromAnimals(animal)
+
+		// But apparently it needs an explicit delete() too
+		subject.delete()
+
+
+	}
+
 	/**
 	 * Return all animals for a specific template
 	 * @param Template
