@@ -218,6 +218,17 @@ class InvestigationWizardController {
 					if (pluginManager.getGrailsPlugin('grom')) ".persisting instances to the database...".grom()
 
 					// put your bussiness logic in here
+					flow.investigation.validate()
+					if (!flow.investigation.validate()) {
+						this.appendErrors(flow.investigation, flash.wizardErrors)
+						throw new Exception('error saving investigation')
+					}
+					else {
+						flow.investigation.save(validate: true, failOnError: true)
+					}
+					log.info ".saved investigation "+flow.study+" (id: "+flow.investigation.id+")"
+
+
 					success()
 				} catch (Exception e) {
 					// put your error handling logic in
