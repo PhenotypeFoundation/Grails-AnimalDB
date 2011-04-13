@@ -17,7 +17,6 @@
 	<g:javascript library="jquery" plugin="jquery"/>
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'ajaxflow.css')}"/>
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'templates.css')}"/>
-	<link rel="stylesheet" href="${resource(dir: 'css', file: 'animaldb.css')}"/>
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'table-editor.css', plugin: 'gdt')}"/>
 	<script type="text/javascript" src="${resource(dir: 'js', file: 'table-editor.js', plugin: 'gdt')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'js', file: 'tooltips.js', plugin: 'gdt')}"></script>

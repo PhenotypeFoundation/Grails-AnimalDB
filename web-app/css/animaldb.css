@@ -33,3 +33,25 @@ option.unlocked {
 	padding-left: 18px;
 }
 /* END :: special select option styles */
+
+
+/* START :: header */
+.header {
+	margin-bottom: 10px;
+	border-bottom: 2px solid black;
+	height: 77px;
+	width: 100%;
+	background: #f8f8f8 url(../images/hackaton.png) no-repeat left top;
+}
+
+.header .content {
+	display: inline-block;
+	margin-left: 500px;
+	margin-top: 40px;
+	font: 24px verdana, arial, helvetica, sans-serif;
+}
+
+.header .content a:link, .header .content a:visited, .header .content a:hover {
+
+}
+/* END :: header */
