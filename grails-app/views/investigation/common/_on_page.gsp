@@ -37,6 +37,18 @@
 					refreshFlow();
 				}
 			});
+
+			// handle term selects
+			new SelectAddMore().init({
+				rel	 : 'term',
+				url	 : baseUrl + '/termEditor',
+				vars	: 'ontologies',
+				label   : 'add more...',
+				style   : 'addMore',
+				onClose : function(scope) {
+					refreshFlow();
+				}
+			});
         }
 </script>
 
