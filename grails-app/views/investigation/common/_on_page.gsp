@@ -24,9 +24,21 @@
 %>
 <script type="text/javascript">
         function onPage() {
-                if (console) {
-                        console.log('calling onPage() which can be used to attach generic javascript handlers to DOM elements of a rendered page / partial');
-                }
+			if (console) {
+				console.log('calling onPage() which can be used to attach generic javascript handlers to DOM elements of a rendered page / partial');
+			}
+
+			// handle template selects
+			new SelectAddMore().init({
+				rel	 : 'template',
+				url	 : baseUrl + '/templateEditor',
+				vars	: 'entity,ontologies',
+				label   : 'add / modify..',
+				style   : 'modify',
+				onClose : function(scope) {
+					refreshFlow();
+				}
+			});
         }
 </script>
 
