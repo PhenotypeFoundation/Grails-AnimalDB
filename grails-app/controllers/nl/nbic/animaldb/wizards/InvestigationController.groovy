@@ -21,6 +21,8 @@ class InvestigationController {
 	// notifications to the unified notifications daemon
 	// (see http://www.grails.org/plugin/grom)
 	def pluginManager
+
+	def validationTagLib = new ValidationTagLib()
 	
 	/**
 	 * index method, redirect to the webflow
@@ -58,8 +60,8 @@ class InvestigationController {
 			// wizard tabs. Also see common/_tabs.gsp for more information
 			flow.page = 0
 			flow.pages = [
-				[title: 'Page One'],
-				[title: 'Page Two'],
+				[title: 'Investigation'],
+				[title: 'Animals'],
 				[title: 'Page Three'],
 				[title: 'Page Four'],
 				[title: 'Done']
