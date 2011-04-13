@@ -65,12 +65,13 @@ option.unlocked {
 	height: 77px;
 	width: 100%;
 	background-color: #f8f8f8;
+	background: #f8f8f8 url(../images/grails_logo.png) no-repeat left center;
 }
 
 .footer .content {
 	display: inline-block;
 	color: #006dba;
-	margin-top: 40px;
+	margin-top: 32px;
 	margin-left: 200px;
 	width: 100%;
 }
