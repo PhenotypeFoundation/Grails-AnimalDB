@@ -72,6 +72,10 @@ option.unlocked {
 	margin-top: 30px;
 	margin-right: 5px;
 }
+
+.pageHeader .twitter .who {
+	border-bottom: 1px dotted red;
+}
 /* END :: header */
 
 /* START :: footer */

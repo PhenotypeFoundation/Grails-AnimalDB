@@ -9,49 +9,15 @@
 	<script type="text/javascript">var baseUrl = '${resource(dir: '')}';</script>
 	<script src="${createLinkTo(dir: 'js', file: 'jquery-ui-1.8.7.custom.min.js')}" type="text/javascript"></script>
 	<link rel="stylesheet" href="${createLinkTo(dir: 'css/cupertino', file: 'jquery-ui-1.8.7.custom.css')}"/>
-	<script type="text/javascript">
-		var config = {
-			interval: 1000,
-			twitter: { interval: 1000 }
-		}
-
-		$(document).ready(function() {
-			// run engine
-			setInterval("engine()", config.interval);
-
-			// run twitterfeed
-			twitterfeed();
-		});
-
-		function engine() {
-			// handle engine
-		}
-
-		function twitterfeed() {
-			$.getJSON("http://search.twitter.com/search.json?callback=?",
-				{
-					q: "#nbic",
-					rpp: 1
-				},
-				function(data) {
-					$('#twitterText').html(data.results[0].text);
-					$('#twitterAuthor').html(
-						"wrote " + data.results[0].from_user + " at " + data.results[0].created_at
-					);
-					config.twitter.interval = 5000;
-				}
-			);
-			setTimeout("twitterfeed()", config.twitter.interval);
-		}
-	</script>
+	<script src="${createLinkTo(dir: 'js', file: 'twitterfeed.js')}" type="text/javascript"></script>
 </head>
 <body>
 <div class="pageHeader">
 	<div class="content">Capturing <a href="http://www.animaldb.org/wiki/AnimaldbStart" target="_new">Animal DB</a> in <a href="http://www.grails.org" target="_new">Grails</a></div>
 	<div class="twitter">
-		<div id="twitterTitle"><b>in the meantime on Twitter:</b></div>
-		<div id="twitterText"></div>
 		<div id="twitterAuthor"></div>
+		<div id="twitterText"></div>
+		<div id="twitterDate"></div>
 	</div>
 </div>
 <g:layoutBody/>
