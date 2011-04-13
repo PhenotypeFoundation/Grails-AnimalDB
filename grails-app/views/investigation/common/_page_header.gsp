@@ -16,6 +16,7 @@
  * $Date:  2010-12-22 17:49:27 +0100 (Wed, 22 Dec 2010) $
  */
 %>
+<g:hiddenField name="do" value="" />
 <h1>Investigation Wizard: page ${page}</h1>
 <g:render template="common/tabs"/>
 <div class="content">
