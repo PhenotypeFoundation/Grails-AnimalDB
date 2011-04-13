@@ -37,7 +37,6 @@ option.unlocked {
 
 /* START :: header */
 .pageHeader {
-	margin-bottom: 40px;
 	border-bottom: 2px solid black;
 	height: 77px;
 	width: 100%;
@@ -77,6 +76,29 @@ option.unlocked {
 	border-bottom: 1px dotted red;
 }
 /* END :: header */
+
+/* START :: menu */
+.pageMenu {
+	height: 20px;
+	border-bottom: 2px solid black;
+	margin-bottom: 40px;
+	background-color: #afafaf;
+}
+
+.pageMenu ul {
+	list-style: none;
+	padding: 0 20px;
+	margin: 0;
+	float: left;
+}
+
+.pageMenu ul li {
+	float: left;
+	margin: 0;
+	padding: 0 15px 0 0;
+	position: relative; /*--Declare X and Y axis base--*/
+}
+/* END :: menu */
 
 /* START :: page content */
 .pageBody {

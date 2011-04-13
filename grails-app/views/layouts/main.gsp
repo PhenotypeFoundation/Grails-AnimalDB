@@ -20,6 +20,14 @@
 		<div id="twitterDate"></div>
 	</div>
 </div>
+<div class="pageMenu">
+	<ul>
+		<li>menu item 1</li>
+		<li>menu item 2</li>
+		<li>...</li>
+		<li>menu item N</li>
+	</ul>
+</div>
 <div class="pageBody">
 	<g:layoutBody/>
 </div>
