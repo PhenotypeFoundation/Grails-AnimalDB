@@ -3,7 +3,7 @@ package nl.nbic.animaldb
 import org.dbnp.gdt.*
 
 class Investigation extends TemplateEntity {
-	String name
+	String name			// the name of an investigation
 
 	// an investigation is done over many animals
 	static hasMany = [
@@ -11,6 +11,7 @@ class Investigation extends TemplateEntity {
 	] 
 
 	static constraints = {
+		name(nullable:false, blank: false, maxSize: 255)
 	}
 
 	/**
@@ -23,6 +24,7 @@ class Investigation extends TemplateEntity {
 		new TemplateField(
 		name: 'name',
 		type: TemplateFieldType.STRING,
+		comment: 'an investigation should have a name describing the investigation',
 		required: true)
 	]
 }
