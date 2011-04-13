@@ -23,7 +23,7 @@ class InvestigationWizardController {
 	def pluginManager
 
 	def validationTagLib = new ValidationTagLib()
-	
+
 	/**
 	 * index method, redirect to the webflow
 	 * @void
@@ -70,7 +70,7 @@ class InvestigationWizardController {
 
 			// instantiate a new investigation if we do not
 			// yet have an investigation
-			if (!flow.investigation) { 
+			if (!flow.investigation) {
 				flow.investigation = new Investigation()
 			}
 
@@ -221,17 +221,17 @@ class InvestigationWizardController {
 					// Grom a development message
 					if (pluginManager.getGrailsPlugin('grom')) ".persisting instances to the database...".grom()
 
-					// put your bussiness logic in here
-					flow.investigation.validate()
+                    // TODO: make a call to detectUniqueConstraintViolations
+
+					// put your business logic in here
 					if (!flow.investigation.validate()) {
 						this.appendErrors(flow.investigation, flash.wizardErrors)
 						throw new Exception('error saving investigation')
 					}
 					else {
-						flow.investigation.save(validate: true, failOnError: true)
+						flow.investigation.save(failOnError: true)
 					}
-					log.info ".saved investigation "+flow.study+" (id: "+flow.investigation.id+")"
-
+					log.info ".saved investigation $flow.study (id: $flow.investigation.id)"
 
 					success()
 				} catch (Exception e) {
@@ -271,7 +271,7 @@ class InvestigationWizardController {
 			onRender {
 				// Grom a development message
 				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial pages/_final_page.gsp".grom()
-				
+
 				success()
 			}
 		}
@@ -342,33 +342,30 @@ class InvestigationWizardController {
 		def species		= Term.findByNameAndOntology(params.get('species'),TemplateEntity.getField(Animal.domainFields, 'species').ontologies.asList()[0])
 		def template	= Template.findByName(params.get('template'))
 		println "This resulted in species ${species}"
-		// can we add animals?
+
+        // Animal names will by default have the format 'Animal #'
+        // The names have to be unique so we'll find the highest number and
+        // start counting on from there
+
+        // find all animal names starting with 'Animal ' and the ones created in this webflow
+        def defaultExistingAnimals = (Animal.findByCustomIdLike('Animal %') ?: []) + (flow.investigation.animals ?: [])
+
+        // retrieve the ones having the default format
+        def defaultCustomIds = defaultExistingAnimals*.customId.findAll { it =~ /Animal [0-9]+$/ }
+
+        // strip the numbers from the names and find the largest
+        def animalIterator = defaultCustomIds ? defaultCustomIds.collect { it[7..-1] as Integer }.sort()[-1] : 0
+
+        // can we add animals?
 		if (number > 0 && species && template) {
 			// add animals to study
 			number.times {
-				// work variables
-				def animalName = 'Animal '
-				def animalIterator = 1
-				def tempAnimalName = animalName + animalIterator
-
-				// make sure animal name is unique
-				if (flow.investigation.animals) {
-					while (flow.investigation.animals.find { it.customId == tempAnimalName }) {
-						animalIterator++
-						tempAnimalName = animalName + animalIterator
-					}
-				}
-				animalName = tempAnimalName
-
-				// create a animal instance
-				def animal = new Animal(
-					name		: animalName,
-					species		: species,
-					template	: template
-				)
 
 				// add it to the study
-				flow.investigation.addToAnimals( animal )
+				flow.investigation.addToAnimals( new Animal(
+					customId    : "Animal ${++animalIterator}",
+					species		: species,
+					template	: template) )
 			}
 		} else {
 			// add feedback
