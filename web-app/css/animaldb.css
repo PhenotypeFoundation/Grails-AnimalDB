@@ -46,7 +46,9 @@ option.unlocked {
 
 .pageHeader .content {
 	display: inline-block;
-	margin-left: 500px;
+	zoom: 1; /* IE 6 & 7 hack */
+	*display: inline; /* IE 6 & 7 hack */
+	margin-left: 440px;
 	margin-top: 34px;
 	font: 30px verdana, arial, helvetica, sans-serif;
 }
@@ -55,6 +57,20 @@ option.unlocked {
 	color: #666;
 	border-bottom: 2px dashed red;
 	text-decoration: none;
+}
+
+.pageHeader .twitter {
+	display: inline-block;
+	zoom: 1; /* IE 6 & 7 hack */
+	*display: inline; /* IE 6 & 7 hack */
+	float: right;
+	text-align: right;
+	color: #666;
+	font-size:8px;
+	width: 400px;
+	height: 43px;
+	margin-top: 30px;
+	margin-right: 5px;
 }
 /* END :: header */
 
@@ -70,6 +86,8 @@ option.unlocked {
 
 .pageFooter .content {
 	display: inline-block;
+	zoom: 1; /* IE 6 & 7 hack */
+	*display: inline; /* IE 6 & 7 hack */
 	color: #006dba;
 	margin-top: 32px;
 	margin-left: 200px;
@@ -85,6 +103,8 @@ option.unlocked {
 .pageFooter .links {
 	width: 300px;
 	display: inline-block;
+	zoom: 1; /* IE 6 & 7 hack */
+	*display: inline; /* IE 6 & 7 hack */
 	float: right;
 	margin-top: -55px;
 	text-align: right;
