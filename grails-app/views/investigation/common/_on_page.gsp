@@ -24,9 +24,7 @@
 %>
 <script type="text/javascript">
         function onPage() {
-			if (console) {
-				console.log('calling onPage() which can be used to attach generic javascript handlers to DOM elements of a rendered page / partial');
-			}
+			attachHelpTooltips();
 
 			// handle template selects
 			new SelectAddMore().init({
