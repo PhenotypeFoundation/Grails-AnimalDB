@@ -11,7 +11,9 @@ class InvestigationTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 
-    void testSomething() {
+    void testCreateInvestigation() {
+
+
 
     }
 }

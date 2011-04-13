@@ -15,6 +15,15 @@ class Investigation extends TemplateEntity {
 	}
 
 	/**
+	 * Return all animals for a specific template
+	 * @param Template
+	 * @return ArrayList
+	 */
+	def ArrayList<Animal> giveAnimalsForTemplate(Template template) {
+		animals.findAll { animal -> animal.template.equals(template) }
+	}
+
+	/**
 	 * return the domain fields for this domain class
 	 * @return List
 	 */

@@ -118,6 +118,7 @@ class InvestigationController {
 				flash.wizardErrors = [:]
 				success()
 			}.to "investigation"
+
 			on("switchTemplate") {
 				// handle form data
 				investigationPage(flow, flash, params)
@@ -128,7 +129,7 @@ class InvestigationController {
 			}.to "investigation"
 			on("next") {
 				investigationPage(flow, flash, params) ? success() : error()
-			}.to "pageTwo"
+			}.to "animals"
 			on("toPageTwo") {
 				investigationPage(flow, flash, params) ? success() : error()
 			}.to "pageTwo"
@@ -145,15 +146,41 @@ class InvestigationController {
 		}
 
 		// second wizard page
-		pageTwo {
-			render(view: "_page_two")
+		animals {
+			render(view: "_animals")
 			onRender {
 				// Grom a development message
-				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial: pages/_page_two.gsp".grom()
+				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial: pages/_animals.gsp".grom()
 
 				flow.page = 2
+
+				if (!flash.values || !flash.values.addNumber) flash.values = [addNumber:1]
+
 				success()
 			}
+			on("refresh") {
+				// remember the params in the flash scope
+				flash.values = params
+
+				// handle form data
+				animalPage(flow, flash, params)
+
+				// reset errors
+				flash.wizardErrors = [:]
+
+				// refresh templates
+				if (flow.investigation.animals) {
+					TemplateEntity.giveTemplates(flow.investigation.animals).each {
+						it.refresh()
+					}
+				}
+
+				success()
+			}.to "animals"
+			on("add") {
+				// handle form data
+				addAnimals(flow, flash, params) ? success() : error()
+			}.to "animals"
 			on("next").to "pageThree"
 			on("previous").to "investigation"
 			on("toPageOne").to "investigation"
@@ -175,9 +202,9 @@ class InvestigationController {
 				success()
 			}
 			on("next").to "pageFour"
-			on("previous").to "pageTwo"
+			on("previous").to "animals"
 			on("toPageOne").to "investigation"
-			on("toPageTwo").to "pageTwo"
+			on("toPageTwo").to "animals"
 			on("toPageFour").to "pageFour"
 			on("toPageFive") {
 				flow.page = 5
@@ -200,7 +227,7 @@ class InvestigationController {
 			}.to "save"
 			on("previous").to "pageThree"
 			on("toPageOne").to "investigation"
-			on("toPageTwo").to "pageTwo"
+			on("toPageTwo").to "animals"
 			on("toPageThree").to "pageThree"
 			on("toPageFive") {
 				flow.page = 5
@@ -245,7 +272,7 @@ class InvestigationController {
 			on("next").to "save"
 			on("previous").to "pageFour"
 			on("toPageOne").to "investigation"
-			on("toPageTwo").to "pageTwo"
+			on("toPageTwo").to "animals"
 			on("toPageThree").to "pageThree"
 			on("toPageFour").to "pageFour"
 			on("toPageFive").to "save"
@@ -263,6 +290,111 @@ class InvestigationController {
 			}
 		}
 	}
+
+	/**
+	 * Handle the wizard animals page
+	 *
+	 * @param Map LocalAttributeMap (the flow scope)
+	 * @param Map localAttributeMap (the flash scope)
+	 * @param Map GrailsParameterMap (the flow parameters = form data)
+	 * @returns boolean
+	 */
+	def animalPage(flow, flash, params) {
+		def errors = false
+		flash.wizardErrors = [:]
+
+		// remember the params in the flash scope
+		flash.values = params
+
+		// iterate through animals
+		flow.investigation.animals.each() { animal ->
+			// iterate through (template and domain) fields
+			animal.giveFields().each() { field ->
+				// set field
+				animal.setFieldValue(
+					field.name,
+					params.get('animal_' + animal.getIdentifier() + '_' + field.escapedName())
+				)
+			}
+
+			// validate animal
+			if (!animal.validate()) {
+				errors = true
+				this.appendErrors(animal, flash.wizardErrors, 'animal_' + animal.getIdentifier() + '_')
+			}
+		}
+
+		return !errors
+	}
+
+	/**
+	 * Add a number of animals to a study
+	 *
+	 * required params entities:
+	 * -addNumber (int)
+	 * -species   (string)
+	 * -template  (string)
+	 *
+	 * @param Map LocalAttributeMap (the flow scope)
+	 * @param Map localAttributeMap (the flash scope)
+	 * @param Map GrailsParameterMap (the flow parameters = form data)
+	 * @returns boolean
+	 */
+	def addAnimals(flow, flash, params) {
+		// remember the params in the flash scope
+		flash.values = params
+
+		// handle the animal page
+		animalPage(flow, flash, params)
+
+		// (re)set error message
+		flash.wizardErrors = [:]
+
+		// set work variables
+		def errors		= false
+		def number		= params.get('addNumber') as int
+		def species		= Term.findByNameAndOntology(params.get('species'),TemplateEntity.getField(Animal.domainFields, 'species').ontologies[0])
+		def template	= Template.findByName(params.get('template'))
+		println "This resulted in species ${species}"
+		// can we add animals?
+		if (number > 0 && species && template) {
+			// add animals to study
+			number.times {
+				// work variables
+				def animalName = 'Animal '
+				def animalIterator = 1
+				def tempAnimalName = animalName + animalIterator
+
+				// make sure animal name is unique
+				if (flow.investigation.animals) {
+					while (flow.investigation.animals.find { it.name == tempAnimalName }) {
+						animalIterator++
+						tempAnimalName = animalName + animalIterator
+					}
+				}
+				animalName = tempAnimalName
+
+				// create a animal instance
+				def animal = new Animal(
+					name		: animalName,
+					species		: species,
+					template	: template
+				)
+
+				// add it to the study
+				flow.investigation.addToAnimals( animal )
+			}
+		} else {
+			// add feedback
+			errors = true
+			if (number < 1)	this.appendErrorMap(['addNumber': 'Enter a positive number of animals to add'], flash.wizardErrors)
+			if (!species)	this.appendErrorMap(['species': g.message(code: 'select.not.selected.or.add', args: ['species'])], flash.wizardErrors)
+			if (!template)	this.appendErrorMap(['template': g.message(code: 'select.not.selected.or.add', args: ['template'])], flash.wizardErrors)
+		}
+
+		return !errors
+	}
+
 
 	/**
 	 * Handle the wizard investigation page
