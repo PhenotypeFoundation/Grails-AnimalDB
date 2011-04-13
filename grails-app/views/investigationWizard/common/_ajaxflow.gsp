@@ -12,7 +12,7 @@
  */
 %>
 <div id="ajaxflow">
-<af:flow name="investigation" class="ajaxFlow" commons="common" partials="pages" spinner="ajaxFlowWait" controller="[controller: 'investigation', action: 'pages']">
+<af:flow name="investigationWizard" class="ajaxFlow" commons="common" partials="pages" spinner="ajaxFlowWait" controller="[controller: 'investigationWizard', action: 'pages']">
 	<%	/**
 	 	 * The initial rendering of this template will result
 	 	 * in automatically triggering the 'next' event in

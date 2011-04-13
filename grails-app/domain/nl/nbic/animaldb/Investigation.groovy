@@ -21,7 +21,7 @@ class Investigation extends TemplateEntity {
 		this.removeFromAnimals(animal)
 
 		// But apparently it needs an explicit delete() too
-		subject.delete()
+		animal.delete()
 
 
 	}

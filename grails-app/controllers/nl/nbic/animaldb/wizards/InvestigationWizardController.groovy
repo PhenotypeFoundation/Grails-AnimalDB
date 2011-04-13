@@ -15,7 +15,7 @@ import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
  * $Author:  duh $
  * $Date:  2010-12-08 15:12:54 +0100 (Wed, 08 Dec 2010) $
  */
-class InvestigationController {
+class InvestigationWizardController {
 	// the pluginManager is used to check if the Grom
 	// plugin is available so we can 'Grom' development
 	// notifications to the unified notifications daemon
@@ -82,7 +82,7 @@ class InvestigationController {
 		// page dynamically renders the study template
 		// and makes the flow jump to the study logic)
 		mainPage {
-			render(view: "/investigation/index")
+			render(view: "/investigationWizard/index")
 			onRender {
 				// Grom a development message
 				if (pluginManager.getGrailsPlugin('grom')) "rendering the main Ajaxflow page (index.gsp)".grom()

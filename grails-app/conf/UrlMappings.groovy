@@ -12,7 +12,7 @@ class UrlMappings {
 
 		// jump directly into the wizard
 		// for the nbic hackaton demo
-		"/"(controller: 'investigation')
+		"/"(controller: 'investigationWizard')
 
 		"500"(view:'/error')
 	}
