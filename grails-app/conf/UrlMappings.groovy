@@ -7,7 +7,13 @@ class UrlMappings {
 			}
 		}
 
-		"/"(view:"/index")
+		// default setting:
+		//"/"(view:"/index")
+
+		// jump directly into the wizard
+		// for the nbic hackaton demo
+		"/"(controller: 'investigation')
+
 		"500"(view:'/error')
 	}
 }
