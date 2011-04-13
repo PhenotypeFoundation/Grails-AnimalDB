@@ -15,5 +15,10 @@
 	<div class="content">Capturing <a href="http://www.animaldb.org/wiki/AnimaldbStart" target="_new">Animal DB</a> in <a href="http://www.grails.org" target="_new">Grails</a></div>
 </div>
 <g:layoutBody/>
+<div class="footer">
+	<div class="content">
+		Copyright © 2008 - <g:formatDate format="yyyy" date="${new Date()}"/> NBIC, NMC and AnimalDB. All rights reserved. More information can be found <a href="https://wiki.nbic.nl/index.php/GSCF_and_Molgenis_Hackathon_project">here</a>.
+	</div>
+</div>
 </body>
 </html>
