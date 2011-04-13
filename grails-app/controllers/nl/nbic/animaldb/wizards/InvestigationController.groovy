@@ -109,6 +109,11 @@ class InvestigationController {
 				// handle form data
 				investigationPage(flow, flash, params)
 
+				// force refresh of the template
+				if (flow.investigation.template && flow.investigation.template instanceof Template) {
+					flow.investigation.template.refresh()
+				}
+
 				// reset errors
 				flash.wizardErrors = [:]
 				success()
