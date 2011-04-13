@@ -1,6 +1,8 @@
 package nl.nbic.animaldb.wizards
 
 import nl.nbic.animaldb.*
+import org.dbnp.gdt.*
+import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
 
 /**
  * ajaxflow Controller
@@ -102,25 +104,35 @@ class InvestigationController {
 				success()
 			}
 			on("refresh") {
+				// handle form data
+				investigationPage(flow, flash, params)
+
+				// reset errors
+				flash.wizardErrors = [:]
 				success()
 			}.to "investigation"
 			on("switchTemplate") {
+				// handle form data
+				investigationPage(flow, flash, params)
+
+				// reset errors
+				flash.wizardErrors = [:]
 				success()
 			}.to "investigation"
 			on("next") {
-				// put your bussiness logic (if applicable) in here
+				investigationPage(flow, flash, params) ? success() : error()
 			}.to "pageTwo"
 			on("toPageTwo") {
-				// put your bussiness logic (if applicable) in here
+				investigationPage(flow, flash, params) ? success() : error()
 			}.to "pageTwo"
 			on("toPageThree") {
-				// put your bussiness logic (if applicable) in here
+				investigationPage(flow, flash, params) ? success() : error()
 			}.to "pageThree"
 			on("toPageFour") {
-				// put your bussiness logic (if applicable) in here
+				investigationPage(flow, flash, params) ? success() : error()
 			}.to "pageFour"
 			on("toPageFive") {
-				// put your bussiness logic (if applicable) in here
+				investigationPage(flow, flash, params) ? success() : error()
 				flow.page = 5
 			}.to "save"
 		}
@@ -242,6 +254,109 @@ class InvestigationController {
 				
 				success()
 			}
+		}
+	}
+
+	/**
+	 * Handle the wizard investigation page
+	 *
+	 * @param Map LocalAttributeMap (the flow scope)
+	 * @param Map localAttributeMap (the flash scope)
+	 * @param Map GrailsParameterMap (the flow parameters = form data)
+	 * @returns boolean
+	 */
+	def investigationPage(flow, flash, params) {
+		flash.values		= params
+		flash.wizardErrors	= [:]
+
+		// instantiate investigation of it is not yet present
+		if (!flow.investigation) flow.investigation = new Investigation()
+
+		// did the study template change?
+		if (params.get('template').size() && flow.investigation.template?.name != params.get('template')) {
+			// set the template
+			flow.investigation.template = Template.findByName(params.remove('template'))
+		}
+
+		// does the study have a template set?
+		if (flow.investigation.template && flow.investigation.template instanceof Template) {
+			// yes, iterate through template fields
+			flow.investigation.giveFields().each() {
+				// and set their values
+				flow.investigation.setFieldValue(it.name, params.get(it.escapedName()))
+			}
+		}
+
+		// have we got a template?
+		if (flow.investigation.template && flow.investigation.template instanceof Template) {
+			// validate the study
+			if (flow.investigation.validate()) {
+				// instance is okay
+				return true
+			} else {
+				// validation failed
+				this.appendErrors(flow.investigation, flash.wizardErrors)
+				return false
+			}
+		} else {
+			// no, return an error that the template is not set
+			this.appendErrorMap(['template': g.message(code: 'select.not.selected.or.add', args: ['template'])], flash.wizardErrors)
+			return false
+		}
+	}
+
+	/**
+	 * transform domain class validation errors into a human readable
+	 * linked hash map
+	 * @param object validated domain class
+	 * @return object  linkedHashMap
+	 */
+	def getHumanReadableErrors(object) {
+		def errors = [:]
+		object.errors.getAllErrors().each() { error ->
+			// error.codes.each() { code -> println code }
+
+			// generally speaking g.message(...) should work,
+			// however it fails in some steps of the wizard
+			// (add event, add assay, etc) so g is not always
+			// availably. Using our own instance of the
+			// validationTagLib instead so it is always
+			// available to us
+			errors[ error.getArguments()[0] ] = validationTagLib.message(error: error)
+		}
+
+		return errors
+	}
+
+	/**
+	 * append errors of a particular object to a map
+	 * @param object
+	 * @param map linkedHashMap
+	 * @void
+	 */
+	def appendErrors(object, map) {
+		this.appendErrorMap(getHumanReadableErrors(object), map)
+	}
+
+	def appendErrors(object, map, prepend) {
+		this.appendErrorMap(getHumanReadableErrors(object), map, prepend)
+	}
+
+	/**
+	 * append errors of one map to another map
+	 * @param map linkedHashMap
+	 * @param map linkedHashMap
+	 * @void
+	 */
+	def appendErrorMap(map, mapToExtend) {
+		map.each() {key, value ->
+			mapToExtend[key] = ['key': key, 'value': value, 'dynamic': false]
+		}
+	}
+
+	def appendErrorMap(map, mapToExtend, prepend) {
+		map.each() {key, value ->
+			mapToExtend[prepend + key] = ['key': key, 'value': value, 'dynamic': true]
 		}
 	}
 }
