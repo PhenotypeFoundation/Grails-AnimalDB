@@ -4,6 +4,17 @@ import groovyx.net.http.*
 import static groovyx.net.http.ContentType.URLENC
 import org.dbnp.gdt.Template
 
+/**
+ * Molgenis Service Class
+ *
+ * @author	Siemen Sikkema
+ * @since	20110413
+ *
+ * Revision information:
+ * $Rev:  66849 $
+ * $Author:  duh $
+ * $Date:  2010-12-08 15:12:54 +0100 (Wed, 08 Dec 2010) $
+ */
 class MolgenisService {
 
     static transactional = true
@@ -24,6 +35,11 @@ class MolgenisService {
 		response.data
 	}
 
+	/**
+	 * get an investigation from AnimalDB
+	 * @param entity
+	 * @return
+	 */
 	private def getFromMolgenis(String entity) {
 
 		def response = rest.get( path : entity )
@@ -35,6 +51,11 @@ class MolgenisService {
 		response.data
 	}
 
+	/**
+	 * send an investigation to AnimalDB
+	 * @param investigation
+	 * @return
+	 */
     def sendInvestigationToMolgenis(Investigation investigation) {
 
 	    def answer = postToMolgenis('investigation', [ name: investigation.name  + System.currentTimeMillis() ])
@@ -50,8 +71,11 @@ class MolgenisService {
         }
     }
 
+	/**
+	 * fetch all investigations from AnimalDB
+	 * @return
+	 */
 	Collection<Investigation> getInvestigationsFromMolgenis() {
-
 		def invList = getFromMolgenis('investigation')
 
 		invList.investigation.investigation.collect {
