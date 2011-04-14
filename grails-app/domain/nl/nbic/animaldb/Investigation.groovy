@@ -49,4 +49,12 @@ class Investigation extends TemplateEntity {
 		    comment: 'an investigation should have a name describing the investigation',
 		    required: true)
 	]
+
+    /**
+     *
+     * @return name representation of the investigation
+     */
+    String toString() {
+        name
+    }
 }
