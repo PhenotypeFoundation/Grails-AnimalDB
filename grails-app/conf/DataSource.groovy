@@ -17,6 +17,16 @@ environments {
             url = "jdbc:hsqldb:mem:devDB"
         }
     }
+	ci {
+		dataSource {
+			dbCreate = "update"
+			driverClassName = "org.postgresql.Driver"
+			dialect = "org.hibernate.dialect.PostgreSQLDialect"
+			url = "jdbc:postgresql://localhost:5432/animaldb-ci"
+			username = "animaldb"
+			password = "animaldb"
+		}
+	}
     test {
         dataSource {
             dbCreate = "update"
