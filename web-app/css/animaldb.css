@@ -154,6 +154,10 @@ option.unlocked {
 	text-decoration: none;
 }
 
+.pageFooter .content img {
+	border: none;
+}
+
 .pageFooter .links {
 	width: 200px;
 	display: inline-block;
