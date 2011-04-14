@@ -308,7 +308,7 @@ class InvestigationWizardController {
 					else {
 						flow.investigation.save(failOnError: true)
 					}*/
-					log.info "starting send to molgenis"
+					log.info ".starting to send investigation to molgenis..."
 					flow.resultMolgenisId = molgenisService.sendInvestigationToMolgenis(flow.investigation)
 
 					log.info ".saved investigation (molgenis id: $flow.resultMolgenisId)"

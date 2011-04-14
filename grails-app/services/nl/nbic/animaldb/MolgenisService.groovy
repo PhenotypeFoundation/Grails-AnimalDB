@@ -66,7 +66,6 @@ class MolgenisService {
 
 	    investigation.animals.each { animal ->
 
-		    println "starting to add animal..."
 		    answer = postToMolgenis('individual',[name: animal.customId, investigation: molgenisInvestigationId])
 		    println "Added animal $answer.individual.id"
 
@@ -84,7 +83,7 @@ class MolgenisService {
 		def invList = getFromMolgenis('investigation')
 
 		invList.investigation.investigation.collect {
-			new Investigation(name: it.name, template: Template.get(1) )
+			new Investigation(name: it.name, template: Template.list().first() )
 		}
 
 	}
