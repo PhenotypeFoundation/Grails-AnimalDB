@@ -58,17 +58,21 @@ class MolgenisService {
 	 */
     def sendInvestigationToMolgenis(Investigation investigation) {
 
-	    def answer = postToMolgenis('investigation', [ name: investigation.name  + System.currentTimeMillis() ])
+	    def answer = postToMolgenis('investigation', [ name: investigation.name ])
 
 	    def molgenisInvestigationId = answer.investigation.id
 	    println "Added investigation $molgenisInvestigationId"
 
 	    investigation.animals.each { animal ->
 
+		    println "starting to add animal..."
 		    answer = postToMolgenis('individual',[name: animal.customId, investigation: molgenisInvestigationId])
 		    println "Added animal $answer.individual.id"
 
         }
+
+	    // returned id assigned by MOLGENIS
+	    return molgenisInvestigationId
     }
 
 	/**

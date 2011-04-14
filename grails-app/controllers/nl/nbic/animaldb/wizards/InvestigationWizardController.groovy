@@ -297,7 +297,7 @@ class InvestigationWizardController {
 				// instances you have created in the
 				// ajax flow.
 				flow.page = 3
-				try {
+				//try {
 					// Grom a development message
 					if (pluginManager.getGrailsPlugin('grom')) ".persisting instances to the database...".grom()
 
@@ -309,15 +309,16 @@ class InvestigationWizardController {
 						flow.investigation.save(failOnError: true)
 					}*/
 					log.info "starting send to molgenis"
-					molgenisService.sendInvestigationToMolgenis flow.investigation
+					flow.resultMolgenisId = molgenisService.sendInvestigationToMolgenis(flow.investigation)
 
-					log.info ".saved investigation (id: $flow.investigation.id)"
+					log.info ".saved investigation (molgenis id: $flow.resultMolgenisId)"
 
 					success()
-				} catch (Exception e) {
+				/*} catch (Exception e) {
 					// put your error handling logic in here
+					println e
 					error()
-				}
+				} */
 			}
 			on("error").to "error"
 			on(Exception).to "error"
