@@ -29,12 +29,8 @@
 </div>
 <div class="pageMenu">
 	<ul>
-		<li><a href="#">menu item 1</a></li>
-		<li><a href="#">menu item 2</a></li>
-		<li><a href="#">menu item 3</a></li>
-		<li><a href="#">menu item 4</a></li>
-		<li><a href="#">...</a></li>
-		<li><a href="#">menu item N</a></li>
+		<li><a href="#"><g:link controller="investigationWizard" action="index" params="[jump:'create']">Create a new investigation</g:link></a></li>
+		<li><a href="#"><g:link controller="investigationWizard" action="index" params="[jump:'edit']">Edit an investigation</g:link></a></li>
 	</ul>
 </div>
 <div class="pageBody">

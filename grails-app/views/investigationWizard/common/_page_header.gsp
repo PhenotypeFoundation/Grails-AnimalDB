@@ -17,6 +17,6 @@
  */
 %>
 <g:hiddenField name="do" value="" />
-<h1>Investigation Wizard: page ${page}</h1>
+<h1><g:if test="${jump.action == 'edit'}">Edit</g:if><g:else>Create</g:else> an investigation: step ${page} of ${pages.size()}</h1>
 <g:render template="common/tabs"/>
 <div class="content">

@@ -32,6 +32,30 @@ class InvestigationWizardController {
 		// Grom a development message
 		if (pluginManager.getGrailsPlugin('grom')) "redirecting into the webflow".grom()
 
+		def jump = [:]
+
+		// allow quickjumps to:
+		//      edit a study    : /investigationWizard?jump=edit&id=1
+		//      create a study  : /investigationWizard?jump=create
+		if (params.get('jump')) {
+			switch (params.get('jump')) {
+				case 'edit':
+					jump = [
+						action: 'edit',
+						id: params.get('id')
+					]
+					break
+				default:
+					jump = [
+						action: 'create'
+					]
+					break
+			}
+		}
+
+		// store in session
+		session.jump = jump
+
 		/**
 		 * Do you believe it in your head?
 		 * I can go with the flow
@@ -62,17 +86,11 @@ class InvestigationWizardController {
 			flow.pages = [
 				[title: 'Investigation'],
 				[title: 'Animals'],
-				[title: 'Save'],
 				[title: 'Done']
 			]
-			flow.cancel = true;
-			flow.quickSave = false;
-
-			// instantiate a new investigation if we do not
-			// yet have an investigation
-			if (!flow.investigation) {
-				flow.investigation = new Investigation()
-			}
+			flow.cancel = true
+			flow.quickSave = false
+			flow.jump = session.jump
 
 			success()
 		}
@@ -91,7 +109,62 @@ class InvestigationWizardController {
 				flow.page = 1
 				success()
 			}
-			on("next").to "investigation"
+			on("next").to "handleJump"
+		}
+
+		// handle the jump parameter
+		//
+		// I came to get down [2x]
+		// So get out your seats and jump around
+		// Jump around [3x]
+		// Jump up Jump up and get down
+		// Jump [18x]
+		handleJump {
+			action {
+				// Grom a development message
+				if (pluginManager.getGrailsPlugin('grom')) "entering handleJump".grom()
+
+				if (flow.jump && flow.jump.action =~ 'edit') {
+					// do we have an investigation id?
+					if (flow.jump.id) {
+						// yes, load the investigation
+						toInvestigationPage()
+					} else {
+						// no, go to the modify page to load an investigation
+						// from animal db
+						toModifyPage()
+					}
+				} else {
+					// create wizard
+					toInvestigationPage()
+				}
+			}
+			on("toInvestigationPage").to "investigation"
+			on("toModifyPage").to "modify"
+		}
+
+		// modify page
+		modify {
+			render(view: "_modify")
+			onRender {
+				// Grom a development message
+				if (pluginManager.getGrailsPlugin('grom')) ".rendering the partial: pages/_modify.gsp".grom()
+
+				flow.page = 1
+				success()
+			}
+			on("next") {
+				// load investigation from animal db in here
+			}.to "investigation"
+			on("toPageOne") {
+				// load investigation from animal db in here
+			}.to "investigation"
+			on("toPageTwo") {
+				// load investigation from animal db in here
+			}.to "investigation"
+			on("toPageThree") {
+				// load investigation from animal db in here
+			}.to "investigation"
 		}
 
 		// first wizard page
@@ -130,7 +203,7 @@ class InvestigationWizardController {
 				investigationPage(flow, flash, params) ? success() : error()
 			}.to "animals"
 			on("toPageTwo") {
-				animalPage(flow, flash, params) ? success() : error()
+				investigationPage(flow, flash, params) ? success() : error()
 			}.to "animals"
 			on("toPageThree") {
 				investigationPage(flow, flash, params) ? success() : error()
@@ -217,6 +290,7 @@ class InvestigationWizardController {
 				// here you can validate and save the
 				// instances you have created in the
 				// ajax flow.
+				flow.page = 3
 				try {
 					// Grom a development message
 					if (pluginManager.getGrailsPlugin('grom')) ".persisting instances to the database...".grom()
@@ -246,7 +320,6 @@ class InvestigationWizardController {
 				} catch (Exception e) {
 					// put your error handling logic in
 					// here
-					flow.page = 3
 					error()
 				}
 			}
