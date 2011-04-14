@@ -55,12 +55,8 @@ class MolgenisService {
 
 		def invList = getFromMolgenis('investigation')
 
-		println invList
-
 		invList.investigation.investigation.collect {
-			println "it is $it"
 			new Investigation(name: it.name )
-
 		}
 
 	}
