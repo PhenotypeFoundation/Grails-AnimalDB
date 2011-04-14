@@ -5,6 +5,13 @@ body {
 	background: #fff;
 }
 
+.errorBox {
+	border: 1px dotted red;
+	background-color: #fae2e2;
+	padding: 10px;
+	font-weight: bold;
+}
+
 /* START :: special select option styles */
 option.addMore {
 	background: url(../plugins/famfamfam-1.0.1/images/icons/add.png) no-repeat left top;

@@ -15,10 +15,10 @@
 <h1>Oops!</h1>
 <p>
 	We encountered an problem storing your data! You can either
-	<af:ajaxButton name="toPageFive" value="try again" afterSuccess="onPage();" class="prevnext" />
+	<af:ajaxButton name="toPageThree" value="try again" afterSuccess="onPage();" class="prevnext" />
 	or file a bugreport.
 </p>
-<p>
-	The error was: ${errorMessage}
-</p>
+<div class="errorBox">
+	${errorMessage}
+</div>
 </af:page>

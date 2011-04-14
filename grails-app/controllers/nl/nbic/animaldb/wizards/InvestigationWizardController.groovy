@@ -316,8 +316,8 @@ class InvestigationWizardController {
 					success()
 				} catch (Exception e) {
 					// put your error handling logic in here
-					flow.errorMessage = e.toString()
-					println flow.errorMessage
+					flow.errorMessage = e.getMessage()
+
 					error()
 				}
 			}
