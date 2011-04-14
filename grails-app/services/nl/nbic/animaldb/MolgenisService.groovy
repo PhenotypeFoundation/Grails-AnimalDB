@@ -11,45 +11,19 @@ class MolgenisService {
 
         def investigation = Investigation.get(investigationId)
 
-println investigation
-        
-        def molgenisInvestigationId
+	    def rest =  new RESTClient( 'http://192.168.240.51:8080/molgenis_apps/api/rest/json/' )
 
-        def http = new HTTPBuilder('http://192.168.240.51:8080')
-
-        def req = http.request( groovyx.net.http.Method.POST, ContentType.JSON ) {
-
-            uri.path = '/molgenis_apps/api/rest/json/investigation'
-
-//            body = "name=$investigation.name" //[ name: investigation.name ]
-
-//            requestContentType = ContentType.URLENC
-
-            send URLENC, [ name: investigation.name + System.currentTimeMillis() ]
-
-            println 'asd:' + this
-            response.success = { resp ->
-
-                println "Molgenis response status: $resp.statusLine"
-                println resp.data
-                println resp.data?.investigation
-
-                molgenisInvestigationId = resp.data.investigation.id
-
-            }
-
-            response.failure = { resp ->
-
-                println resp
-                println "Molgenis response status: $resp.statusLine"
-//                throw new Exception("Molgenis response status: $resp.statusLine")
-
-            }
+	    def response = rest.post( path : 'investigation',
+	                         body : [ name: investigation.name  + System.currentTimeMillis() ],
+	                         requestContentType : URLENC )
 
 
-        }
+	    if (response.status != 200) {
+		    throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
+	    }
 
-println req
+	    def molgenisInvestigationId = response.data.investigation.id
+	    println "Added investigation $molgenisInvestigationId"
 //
 //        investigation.animals.each { animal ->
 //            http.request( POST ) {
