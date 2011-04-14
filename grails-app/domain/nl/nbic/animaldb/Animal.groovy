@@ -10,15 +10,13 @@ class Animal extends TemplateEntity {
 	// an animal belongs to an investigation, this
 	// means that animals are cascadedly deleted if
 	// the investigation is deleted
-	static belongsTo = [ investigation: Investigation ]
+	static belongsTo = [investigation: Investigation]
 
 	static constraints = {
-
-	// Check if the customId is really unique within the parent investigation of this animal.
-	// This feature is tested by integration test SampleTests.testSampleUniqueNameConstraint
-	customId(unique:['investigation'], nullable: false, blank: false)
-	species(nullable: false)
-
+		// Check if the customId is really unique within the parent investigation of this animal.
+		// This feature is tested by integration test SampleTests.testSampleUniqueNameConstraint
+		customId(unique: ['investigation'], nullable: false, blank: false)
+		species(nullable: false)
 	}
 
 	/**
