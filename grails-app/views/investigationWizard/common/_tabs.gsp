@@ -14,4 +14,4 @@
  * $Date:  2011-01-18 15:57:41 +0100 (Tue, 18 Jan 2011) $
  */
 %>
-<af:tabs pages="${pages}" page="${page}" clickable="${true}" />
+<af:tabs pages="${pages}" page="${page}" clickable="${investigation}" />

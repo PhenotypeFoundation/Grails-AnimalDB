@@ -18,4 +18,6 @@
 		create a new investigation if you do not wish to edit investigations.
 	</span>
 
+	<b>TODO: implement load logic...</b>
+
 </af:page>

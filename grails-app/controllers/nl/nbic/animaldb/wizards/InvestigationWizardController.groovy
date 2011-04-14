@@ -295,18 +295,6 @@ class InvestigationWizardController {
 					// Grom a development message
 					if (pluginManager.getGrailsPlugin('grom')) ".persisting instances to the database...".grom()
 
-                    def uniques     = [] as Set
-                    def duplicates  = [] as Set
-
-                    // this approach separates the unique from the duplicate entries
-                    flow.investigation.animals.customId.each { uniques.add(it) || duplicates.add(it) }
-
-                    if (duplicates) {
-                        appendErrorMap(['Error': "The following custom ids are duplicates: $duplicates"], flash.wizardErrors)
-                        error() // makes the wizard return to this page to show the error message
-                        return
-                    }
-
 					if (!flow.investigation.validate()) {
 						this.appendErrors(flow.investigation, flash.wizardErrors)
 						throw new Exception('error saving investigation')
@@ -318,8 +306,7 @@ class InvestigationWizardController {
 
 					success()
 				} catch (Exception e) {
-					// put your error handling logic in
-					// here
+					// put your error handling logic in here
 					error()
 				}
 			}
@@ -369,6 +356,9 @@ class InvestigationWizardController {
 	 */
 	def animalPage(flow, flash, params) {
 		def errors = false
+		def uniques = [] as Set
+		def duplicates = [] as Set
+
 		flash.wizardErrors = [:]
 
 		// remember the params in the flash scope
@@ -389,6 +379,20 @@ class InvestigationWizardController {
 			if (!animal.validate()) {
 				errors = true
 				this.appendErrors(animal, flash.wizardErrors, 'animal_' + animal.getIdentifier() + '_')
+			}
+		}
+
+		// this approach separates the unique from the duplicate entries
+		if (flow.investigation.animals) {
+			flow.investigation.animals.customId.each { uniques.add(it) || duplicates.add(it) }
+
+			if (duplicates) {
+				// mark the duplicates
+				flow.investigation.animals.findAll { it.customId in duplicates }.each { animal ->
+					appendErrorMap(["customid":"The following custom ids are duplicates: $duplicates"], flash.wizardErrors, "animal_${animal.getIdentifier()}_")
+				}
+
+				errors = true
 			}
 		}
 
