@@ -1,6 +1,6 @@
 <%
 /**
- * first wizard page / tab
+ * modify investifation page
  *
  * @author Jeroen Wesbeek
  * @since  20110413
@@ -18,6 +18,7 @@
 		create a new investigation if you do not wish to edit investigations.
 	</span>
 
-	<b>TODO: implement load logic...</b>
-
+	<af:investigationElement name="investigation" description="Investigation" error="investigation" value="">
+		The investigation you would like to load and edit
+	</af:investigationElement>
 </af:page>
