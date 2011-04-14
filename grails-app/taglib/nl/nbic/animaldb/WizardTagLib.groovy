@@ -14,6 +14,8 @@ import org.dbnp.gdt.*
  * $Date$
  */
 class WizardTagLib extends GdtTagLib {
+	def molgenisService
+
 	/**
 	 * Investigation form element
 	 * @param Map attributes
@@ -35,7 +37,8 @@ class WizardTagLib extends GdtTagLib {
 	def investigationSelect = { attrs ->
 		// Find all studies the user has access to (max 100)
 		//attrs.from = Study.giveWritableStudies(authenticationService.getLoggedInUser(), 100);
-		attrs.from = Investigation.findAll()
+		//attrs.from = Investigation.findAll()
+		attrs.from = molgenisService.getInvestigationsFromMolgenis()
 
 		// got a name?
 		if (!attrs.name) {
