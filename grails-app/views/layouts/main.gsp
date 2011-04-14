@@ -26,10 +26,12 @@
 </div>
 <div class="pageMenu">
 	<ul>
-		<li>menu item 1</li>
-		<li>menu item 2</li>
-		<li>...</li>
-		<li>menu item N</li>
+		<li><a href="#">menu item 1</a></li>
+		<li><a href="#">menu item 2</a></li>
+		<li><a href="#">menu item 3</a></li>
+		<li><a href="#">menu item 4</a></li>
+		<li><a href="#">...</a></li>
+		<li><a href="#">menu item N</a></li>
 	</ul>
 </div>
 <div class="pageBody">
