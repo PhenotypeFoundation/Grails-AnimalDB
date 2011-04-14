@@ -36,8 +36,6 @@ class WizardTagLib extends GdtTagLib {
 	 */
 	def investigationSelect = { attrs ->
 		// Find all studies the user has access to (max 100)
-		//attrs.from = Study.giveWritableStudies(authenticationService.getLoggedInUser(), 100);
-		//attrs.from = Investigation.findAll()
 		attrs.from = molgenisService.getInvestigationsFromMolgenis()
 
 		// got a name?

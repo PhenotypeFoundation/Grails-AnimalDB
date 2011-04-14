@@ -156,16 +156,20 @@ class InvestigationWizardController {
 				success()
 			}
 			on("next") {
-				// load investigation from animal db in here
+				// handle form data
+				modifyPage(flow, flash, params) ? success() : error()
 			}.to "investigation"
 			on("toPageOne") {
-				// load investigation from animal db in here
+				// handle form data
+				modifyPage(flow, flash, params) ? success() : error()
 			}.to "investigation"
 			on("toPageTwo") {
-				// load investigation from animal db in here
+				// handle form data
+				modifyPage(flow, flash, params) ? success() : error()
 			}.to "investigation"
 			on("toPageThree") {
-				// load investigation from animal db in here
+				// handle form data
+				modifyPage(flow, flash, params) ? success() : error()
 			}.to "investigation"
 		}
 
@@ -348,6 +352,28 @@ class InvestigationWizardController {
 
 				success()
 			}
+		}
+	}
+
+	/**
+	 * Handle the modify page
+	 *
+	 * @param Map LocalAttributeMap (the flow scope)
+	 * @param Map localAttributeMap (the flash scope)
+	 * @param Map GrailsParameterMap (the flow parameters = form data)
+	 * @returns boolean
+	 */
+	def modifyPage(flow, flash, params) {
+		// got investigation parameter?
+		def investigation = molgenisService.getInvestigationsFromMolgenis().find { it.toString() == params.investigation }
+
+		// got an investigation?
+		if (investigation) {
+			// set it in the flow scope
+			flow.investigation = investigation
+			return true
+		} else {
+			return false
 		}
 	}
 
