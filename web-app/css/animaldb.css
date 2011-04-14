@@ -129,14 +129,23 @@ option.unlocked {
 	margin-top: 5px;
 }
 
+.pageFooter .twitter {
+	display: inline-block;
+	zoom: 1; /* IE 6 & 7 hack */
+	*display: inline; /* IE 6 & 7 hack */
+	float: left;
+	margin-left: 20px;
+	margin-top: 5px;
+}
+
 .pageFooter .content {
 	display: inline-block;
 	zoom: 1; /* IE 6 & 7 hack */
 	*display: inline; /* IE 6 & 7 hack */
 	color: #006dba;
 	margin-top: 32px;
-	margin-left: 20px;
-	width: 80%;
+	margin-left: 50px;
+	width: auto;
 }
 
 .pageFooter .content a:link, .pageFooter .content a:visited, .pageFooter .content a:hover {
@@ -146,12 +155,12 @@ option.unlocked {
 }
 
 .pageFooter .links {
-	width: 300px;
+	width: 200px;
 	display: inline-block;
 	zoom: 1; /* IE 6 & 7 hack */
 	*display: inline; /* IE 6 & 7 hack */
 	float: right;
-	margin-top: -53px;
+	margin-top: -5px;
 	text-align: right;
 }
 

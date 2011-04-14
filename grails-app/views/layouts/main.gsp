@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="${createLinkTo(dir: 'css/cupertino', file: 'jquery-ui-1.8.7.custom.css')}"/>
 	<script src="${createLinkTo(dir: 'js', file: 'twitterfeed.js')}" type="text/javascript"></script>
 	<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+	<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="pageHeader">
@@ -35,6 +36,14 @@
 <div class="pageFooter">
 	<div class="facebook">
 		<fb:like href="http://hacktahon.nmcdsp.org" layout="box_count" show_faces="false" width="50" font="verdana"></fb:like>
+	</div>
+	<div class="twitter">
+		<div>
+		   <a href="http://twitter.com/share" class="twitter-share-button"
+			  data-url="http://hackathon.nmcdsp.org"
+			  data-text="Checking out this Hackathon project for capturing AnimalDB in Groovy & Grails! #nbic #hackathon #grails #nmc #animaldb"
+			  data-count="vertical">Tweet</a>
+		</div>
 	</div>
 	<div class="content">
 		Copyright © 2008 - <g:formatDate format="yyyy" date="${new Date()}"/> NBIC, AnimalDB and Netherlands Metabolomics Centre. All rights reserved. More information can be found <a href="https://wiki.nbic.nl/index.php/GSCF_and_Molgenis_Hackathon_project">here</a>.
