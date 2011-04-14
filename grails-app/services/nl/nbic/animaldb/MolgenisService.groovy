@@ -19,9 +19,9 @@ class MolgenisService {
 
     static transactional = true
 
-	def rest = new RESTClient( 'http://192.168.240.51:8080/molgenis_apps/api/rest/json/' )
 
 	private def postToMolgenis(String entity, Map properties) {
+		def rest = new RESTClient( 'http://192.168.240.51:8080/molgenis_apps/api/rest/json/' )
 
 		def response = rest.post( path : entity,
 		                     body : properties,
@@ -41,6 +41,7 @@ class MolgenisService {
 	 * @return
 	 */
 	private def getFromMolgenis(String entity) {
+		def rest = new RESTClient( 'http://192.168.240.51:8080/molgenis_apps/api/rest/json/' )
 
 		def response = rest.get( path : entity )
 
