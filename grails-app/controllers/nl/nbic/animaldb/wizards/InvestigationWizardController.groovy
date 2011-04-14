@@ -341,7 +341,6 @@ class InvestigationWizardController {
 		def number		= params.get('addNumber') as int
 		def species		= Term.findByNameAndOntology(params.get('species'),TemplateEntity.getField(Animal.domainFields, 'species').ontologies.asList()[0])
 		def template	= Template.findByName(params.get('template'))
-		println "This resulted in species ${species}"
 
         // Animal names will by default have the format 'Animal #'
         // The names have to be unique so we'll find the highest number and
