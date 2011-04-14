@@ -3,6 +3,7 @@ package nl.nbic.animaldb
 import groovyx.net.http.*
 import static groovyx.net.http.ContentType.URLENC
 import org.dbnp.gdt.Template
+import grails.converters.JSON
 
 /**
  * Molgenis Service Class
@@ -23,16 +24,20 @@ class MolgenisService {
 	private def postToMolgenis(String entity, Map properties) {
 		def rest = new RESTClient( 'http://vm7.target.rug.nl/animaldb/api/rest/json/' )
 
-		def response = rest.post( path : entity,
-		                     body : properties,
-		                     requestContentType : URLENC )
+		try {
+			def response = rest.post( path : entity,
+								 body : properties,
+								 requestContentType : URLENC )
+			if (response.status != 200) {
+				throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
+			}
 
-
-		if (response.status != 200) {
-			throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
+			return response.data
+		}
+		catch(Exception e) {
+			throw new Exception("Invalid MOLGENIS response: ${e.getMessage()}")
 		}
 
-		response.data
 	}
 
 	/**
@@ -43,13 +48,19 @@ class MolgenisService {
 	private def getFromMolgenis(String entity) {
 		def rest = new RESTClient( 'http://vm7.target.rug.nl/animaldb/api/rest/json/' )
 
-		def response = rest.get( path : entity )
+		try {
+			def response = rest.get( path : entity )
 
-		if (response.status != 200) {
-			throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
+			if (response.status != 200) {
+				throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
+			}
+
+			return response.data
+		}
+		catch(Exception e) {
+			throw new Exception("Invalid MOLGENIS response: ${e.getMessage()}")
 		}
 
-		response.data
 	}
 
 	/**
@@ -82,8 +93,11 @@ class MolgenisService {
 	Collection<Investigation> getInvestigationsFromMolgenis() {
 		def invList = getFromMolgenis('investigation')
 
+		// TODO: this works when there are multiple investigations in the database, if only one this will throw an error
+		// MOLGENIS JSON output is not consistent
+
 		invList.investigation.investigation.collect {
-			new Investigation(name: it.name, template: Template.list().first() )
+			new Investigation(name: it.name, id: it.id, template: Template.list().first() )
 		}
 
 	}
