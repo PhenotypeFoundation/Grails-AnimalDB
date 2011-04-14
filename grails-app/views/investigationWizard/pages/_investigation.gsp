@@ -6,9 +6,9 @@
  * @since  20110413
  *
  * Revision information:
- * $Rev:  67319 $
- * $Author:  duh $
- * $Date:  2010-12-22 17:45:42 +0100 (Wed, 22 Dec 2010) $
+ * $Rev$
+ * $Author$
+ * $Date$
  */
 %>
 <af:page>

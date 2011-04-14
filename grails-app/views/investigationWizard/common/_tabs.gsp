@@ -9,9 +9,9 @@
  * @since  20110413
  *
  * Revision information:
- * $Rev:  68236 $
- * $Author:  duh $
- * $Date:  2011-01-18 15:57:41 +0100 (Tue, 18 Jan 2011) $
+ * $Rev$
+ * $Author$
+ * $Date$
  */
 %>
 <af:tabs pages="${pages}" page="${page}" clickable="${investigation}" />

@@ -10,9 +10,9 @@
  * @see     dbnp.studycapturing.WizardController
  *
  * Revision information:
- * $Rev: 1461 $
- * $Author: work@osx.eu $
- * $Date: 2011-02-01 14:36:57 +0100 (di, 01 feb 2011) $
+ * $Rev$
+ * $Author$
+ * $Date$
  */
 %>
 <af:page>

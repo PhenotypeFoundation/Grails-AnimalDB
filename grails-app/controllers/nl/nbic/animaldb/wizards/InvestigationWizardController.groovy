@@ -11,9 +11,9 @@ import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
  * @since	20110413
  *
  * Revision information:
- * $Rev:  66849 $
- * $Author:  duh $
- * $Date:  2010-12-08 15:12:54 +0100 (Wed, 08 Dec 2010) $
+ * $Rev$
+ * $Author$
+ * $Date$
  */
 class InvestigationWizardController {
 	// the pluginManager is used to check if the Grom

@@ -11,9 +11,9 @@ import org.dbnp.gdt.Template
  * @since 20110413
  *
  * Revision information:
- * $Rev:  66849 $
- * $Author:  duh $
- * $Date:  2010-12-08 15:12:54 +0100 (Wed, 08 Dec 2010) $
+ * $Rev$
+ * $Author$
+ * $Date$
  */
 class MolgenisService {
     // Must be false, since the webflow can't use a transactional service. See

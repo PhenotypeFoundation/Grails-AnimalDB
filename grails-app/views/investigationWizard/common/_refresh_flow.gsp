@@ -19,9 +19,9 @@
  * @since  20110413
  *
  * Revision information:
- * $Rev:  67320 $
- * $Author:  duh $
- * $Date:  2010-12-22 17:49:27 +0100 (Wed, 22 Dec 2010) $
+ * $Rev$
+ * $Author$
+ * $Date$
  */
 %>
 <script type="text/javascript">
