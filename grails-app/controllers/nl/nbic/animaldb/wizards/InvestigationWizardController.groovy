@@ -255,7 +255,7 @@ class InvestigationWizardController {
 
 				// set page to 4 so that the navigation
 				// works (it is disabled on the final page)
-				flow.page = 4
+				flow.page = 3
 			}
 			on("next").to "save"
 			on("previous").to "pageFour"
