@@ -93,3 +93,16 @@ log4j = {
 
 // jquery plugin
 grails.views.javascript.library = "jquery"
+
+if (grails.util.GrailsUtil.environment == GrailsApplication.ENV_TEST) {
+    uploads.uploadDir = "webtestfiles"
+} else {
+    uploads.uploadDir = (new File("/tmp")?.canWrite()) ? "/tmp" : "fileuploads"
+}
+
+// Required for the gdtImporter-plugin
+parentEntityClassName = "nl.nbic.animaldb.Investigation"
+parentEntityHasOwner = false
+
+// ALL children entities of a parentStudy should refer to the parent using this parent name
+childEntityParentName = "investigation"
