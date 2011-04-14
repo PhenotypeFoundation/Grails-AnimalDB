@@ -21,4 +21,8 @@ class InvestigationController {
         render 'iets'
 
     }
+
+	def list = {
+		render molgenisService.investigationsFromMolgenis as XML
+	}
 }

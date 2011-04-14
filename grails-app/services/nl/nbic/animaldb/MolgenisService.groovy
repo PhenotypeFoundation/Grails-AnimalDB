@@ -7,44 +7,61 @@ class MolgenisService {
 
     static transactional = true
 
+	def rest = new RESTClient( 'http://192.168.240.51:8080/molgenis_apps/api/rest/json/' )
+
+	private def postToMolgenis(String entity, Map properties) {
+
+		def response = rest.post( path : entity,
+		                     body : properties,
+		                     requestContentType : URLENC )
+
+
+		if (response.status != 200) {
+			throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
+		}
+
+		response.data
+	}
+
+	private def getFromMolgenis(String entity) {
+
+		def response = rest.get( path : entity )
+
+		if (response.status != 200) {
+			throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
+		}
+
+		response.data
+	}
+
     def sendInvestigationToMolgenis(investigationId) {
 
         def investigation = Investigation.get(investigationId)
 
-	    def rest =  new RESTClient( 'http://192.168.240.51:8080/molgenis_apps/api/rest/json/' )
+	    def answer = postToMolgenis('investigation', [ name: investigation.name  + System.currentTimeMillis() ])
 
-	    def response = rest.post( path : 'investigation',
-	                         body : [ name: investigation.name  + System.currentTimeMillis() ],
-	                         requestContentType : URLENC )
-
-
-	    if (response.status != 200) {
-		    throw new Exception("Invalid MOLGENIS $response.status response: $response.data ")
-	    }
-
-	    def molgenisInvestigationId = response.data.investigation.id
+	    def molgenisInvestigationId = answer.investigation.id
 	    println "Added investigation $molgenisInvestigationId"
-//
-//        investigation.animals.each { animal ->
-//            http.request( POST ) {
-//
-//                uri.path = 'individual'
-//
-//                body = [ name: animal.customId, investigation: molgenisInvestigationId ]
-//
-//                response.success = { resp ->
-//
-//                    println "Molgenis response status: $resp.statusLine"
-//                    molgenisInvestigationId = resp.investigation.id
-//
-//                }
-//
-//                response.failure = { resp ->
-//
-//                    throw new Exception("Error posting animal $animal.customId. Molgenis response status: $resp.statusLine")
-//
-//                }
-//            }
-//        }
+
+	    investigation.animals.each { animal ->
+
+		    answer = postToMolgenis('individual',[name: animal.customId, investigation: molgenisInvestigationId])
+		    println "Added animal $answer.individual.id"
+
+        }
     }
+
+	Collection<Investigation> getInvestigationsFromMolgenis() {
+
+		def invList = getFromMolgenis('investigation')
+
+		println invList
+
+		invList.investigation.investigation.collect {
+			println "it is $it"
+			new Investigation(name: it.name )
+
+		}
+
+	}
 }
