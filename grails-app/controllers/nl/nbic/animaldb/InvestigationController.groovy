@@ -18,5 +18,7 @@ class InvestigationController {
 
         molgenisService.sendInvestigationToMolgenis params.id
 
+        render 'iets'
+
     }
 }
