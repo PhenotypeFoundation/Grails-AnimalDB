@@ -21,16 +21,16 @@ $(document).ready(function() {
 
 function twitterfeed() {
 	$.getJSON("http://search.twitter.com/search.json?callback=?",
-	{
-		q: "#nbic",
-		rpp: 1
-	},
+		{
+			q: "#nbic",
+			rpp: 1
+		},
 		function(data) {
 			$('#twitterText').html("&#8220;" + data.results[0].text + "&#8221;");
-			$('#twitterAuthor').html("<b>in the meantime <span class=\"who\">" + data.results[0].from_user + "</span> wrote on Twitter:</b>");
+			$('#twitterAuthor').html("<b>in the meantime <a href=\"http://twitter.com/" + data.results[0].from_user + "\" target=\"_new\">" + data.results[0].from_user + "</a> wrote on Twitter:</b>");
 			$('#twitterDate').html("at " + data.results[0].created_at);
 			config.twitter.interval = 5000;
 		}
-		);
+	);
 	setTimeout("twitterfeed()", config.twitter.interval);
 }
