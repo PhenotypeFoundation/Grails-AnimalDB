@@ -63,7 +63,7 @@ environments {
         grails.serverURL = "http://localhost:8080/${appName}"
     }
 	ci {
-		grails.serverURL = "http://hackathon.nmcdsp.org/${appName}"
+		grails.serverURL = "http://hackathon.nmcdsp.org"
 	}
 }
 
