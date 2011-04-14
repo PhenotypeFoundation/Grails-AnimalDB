@@ -14,6 +14,8 @@
 <af:page>
 <h1>Final Page</h1>
 <p>
-Your study has been saved. You can now <g:link controller="investigation" action="show" id="${investigation.id}">view the study</g:link> or click <g:link action="index">here</g:link> to add another investigation.
+  Your study has been saved. You can now <g:link controller="investigation" action="show" id="${investigation.id}">view the investigation</g:link> or click <g:link action="index">here</g:link> to add another investigation.
+
+  Click <g:link controller="investigation" action="postToMolgenis" id="${investigation.id}">here</g:link> to send the investigation to Molgenis.
 </p>
 </af:page>

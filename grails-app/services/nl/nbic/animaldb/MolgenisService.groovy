@@ -1,32 +1,29 @@
 package nl.nbic.animaldb
 
 import groovyx.net.http.*
-import grails.converters.JSON
 
 class MolgenisService {
 
     static transactional = true
 
-    def transFormInvestigationForMolgenis(investigation) {
+    def sendInvestigationToMolgenis(investigationId) {
 
-        investigation as JSON
+        def investigation = Investigation.get(investigationId)
+        
+        def molgenisInvestigationId
 
-    }
-
-    def sendInvestigationToMolgenis(investigation) {
-
-//        def http = new HTTPBuilder('http://vm7.target.rug.nl:5180/animaldb/api/rest/json')
         def http = new HTTPBuilder('http://192.168.240.51:8080/molgenis_apps/api/rest/json')
 
-        http.request( POST, ContentType.JSON ) {
+        http.request( 'POST' ) {
 
             uri.path = 'investigation'
 
-            body = [ status: 'someStatus', source: transFormInvestigationForMolgenis(investigation) ]
+            body = [ name: investigation.customId ]
 
             response.success = { resp ->
 
                 println "Molgenis response status: $resp.statusLine"
+                molgenisInvestigationId = resp.investigation.id
 
             }
 
@@ -36,5 +33,27 @@ class MolgenisService {
 
             }
         }
+//
+//        investigation.animals.each { animal ->
+//            http.request( POST ) {
+//
+//                uri.path = 'individual'
+//
+//                body = [ name: animal.customId, investigation: molgenisInvestigationId ]
+//
+//                response.success = { resp ->
+//
+//                    println "Molgenis response status: $resp.statusLine"
+//                    molgenisInvestigationId = resp.investigation.id
+//
+//                }
+//
+//                response.failure = { resp ->
+//
+//                    throw new Exception("Error posting animal $animal.customId. Molgenis response status: $resp.statusLine")
+//
+//                }
+//            }
+//        }
     }
 }
