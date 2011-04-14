@@ -2,6 +2,7 @@ package nl.nbic.animaldb
 
 import groovyx.net.http.*
 import static groovyx.net.http.ContentType.URLENC
+import org.dbnp.gdt.Template
 
 class MolgenisService {
 
@@ -54,7 +55,7 @@ class MolgenisService {
 		def invList = getFromMolgenis('investigation')
 
 		invList.investigation.investigation.collect {
-			new Investigation(name: it.name )
+			new Investigation(name: it.name, template: Template.get(1) )
 		}
 
 	}
