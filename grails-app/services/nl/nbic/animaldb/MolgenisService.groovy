@@ -34,9 +34,7 @@ class MolgenisService {
 		response.data
 	}
 
-    def sendInvestigationToMolgenis(investigationId) {
-
-        def investigation = Investigation.get(investigationId)
+    def sendInvestigationToMolgenis(Investigation investigation) {
 
 	    def answer = postToMolgenis('investigation', [ name: investigation.name  + System.currentTimeMillis() ])
 

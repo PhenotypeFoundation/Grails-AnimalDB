@@ -16,7 +16,7 @@ class InvestigationController {
 
     def postToMolgenis = {
 
-        molgenisService.sendInvestigationToMolgenis params.id
+        molgenisService.sendInvestigationToMolgenis Investigation.find(params.id)
 
         render 'iets'
 

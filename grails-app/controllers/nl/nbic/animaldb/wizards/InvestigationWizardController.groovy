@@ -22,6 +22,8 @@ class InvestigationWizardController {
 	// (see http://www.grails.org/plugin/grom)
 	def pluginManager
 
+    def molgenisService
+
 	def validationTagLib = new ValidationTagLib()
 
 	/**
@@ -295,14 +297,17 @@ class InvestigationWizardController {
 					// Grom a development message
 					if (pluginManager.getGrailsPlugin('grom')) ".persisting instances to the database...".grom()
 
-					if (!flow.investigation.validate()) {
+					/*if (!flow.investigation.validate()) {
 						this.appendErrors(flow.investigation, flash.wizardErrors)
 						throw new Exception('error saving investigation')
 					}
 					else {
 						flow.investigation.save(failOnError: true)
-					}
-					log.info ".saved investigation $flow.study (id: $flow.investigation.id)"
+					}*/
+					log.info "starting send to molgenis"
+					molgenisService.sendInvestigationToMolgenis flow.investigation
+
+					log.info ".saved investigation (id: $flow.investigation.id)"
 
 					success()
 				} catch (Exception e) {
