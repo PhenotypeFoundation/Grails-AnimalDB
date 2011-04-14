@@ -35,7 +35,7 @@
 </div>
 <div class="pageFooter">
 	<div class="facebook">
-		<fb:like href="http://hacktahon.nmcdsp.org" layout="box_count" show_faces="false" width="50" font="verdana"></fb:like>
+		<fb:like href="http://hackathon.nmcdsp.org" layout="box_count" show_faces="false" width="50" font="verdana"></fb:like>
 	</div>
 	<div class="twitter">
 		<div>
