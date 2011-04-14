@@ -221,9 +221,18 @@ class InvestigationWizardController {
 					// Grom a development message
 					if (pluginManager.getGrailsPlugin('grom')) ".persisting instances to the database...".grom()
 
-                    // TODO: make a call to detectUniqueConstraintViolations
+                    def uniques     = [] as Set
+                    def duplicates  = [] as Set
 
-					// put your business logic in here
+                    // this approach separates the unique from the duplicate entries
+                    flow.investigation.animals.customId.each { uniques.add(it) || duplicates.add(it) }
+
+                    if (duplicates) {
+                        appendErrorMap(['Error': "The following custom ids are duplicates: $duplicates"], flash.wizardErrors)
+                        error() // makes the wizard return to this page to show the error message
+                        return
+                    }
+
 					if (!flow.investigation.validate()) {
 						this.appendErrors(flow.investigation, flash.wizardErrors)
 						throw new Exception('error saving investigation')
@@ -346,13 +355,19 @@ class InvestigationWizardController {
         // The names have to be unique so we'll find the highest number and
         // start counting on from there
 
-        // find all animal names starting with 'Animal ' and the ones created in this webflow
-        def defaultExistingAnimals = (Animal.findAllByCustomIdLike('Animal %') ?: []) + (flow.investigation.animals ?: [])
+//        // get the animals that have been added but not yet saved
+//        def defaultExistingAnimals = flow.investigation.animals ?: []
+
+//        if (flow.investigation.id) // only fetch animals from db if investigation has been saved before
+//            defaultExistingAnimals += Animal.findAllByInvestigationAndCustomIdLike(flow.investigation, 'Animal %')
+
+//        // find all animal names starting with 'Animal ' and the ones created in this webflow
+//        def defaultExistingAnimals = Animal.findAllByInvestigationAndCustomIdLike(flow.investigation, 'Animal %') + (flow.investigation.animals ?: [])
 
         // retrieve the ones having the default format
-        def defaultCustomIds = defaultExistingAnimals*.customId.findAll { it =~ /Animal [0-9]+$/ }
+        def defaultCustomIds = flow.investigation.animals*.customId.findAll { it =~ /Animal [0-9]+$/ }
 
-        // strip the numbers from the names and find the largest
+        // strip the numbers from the names and find the largest one
         def animalIterator = defaultCustomIds ? defaultCustomIds.collect { it[7..-1] as Integer }.sort()[-1] : 0
 
         // can we add animals?
