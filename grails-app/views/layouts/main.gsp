@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><g:layoutTitle default="Grails"/></title>
+	<title><g:layoutTitle default="AnimalDB Wizard"/></title>
+	<meta property="og:type" content="non_profit"/>
+	<meta property="og:image" content="${resource(dir: 'images', file: 'facebookLike.png', absolute: true)}"/>
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'animaldb.css')}"/>
 	<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:javascript library="jquery" plugin="jquery"/>
