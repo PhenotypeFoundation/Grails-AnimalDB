@@ -347,7 +347,7 @@ class InvestigationWizardController {
         // start counting on from there
 
         // find all animal names starting with 'Animal ' and the ones created in this webflow
-        def defaultExistingAnimals = (Animal.findByCustomIdLike('Animal %') ?: []) + (flow.investigation.animals ?: [])
+        def defaultExistingAnimals = (Animal.findAllByCustomIdLike('Animal %') ?: []) + (flow.investigation.animals ?: [])
 
         // retrieve the ones having the default format
         def defaultCustomIds = defaultExistingAnimals*.customId.findAll { it =~ /Animal [0-9]+$/ }
