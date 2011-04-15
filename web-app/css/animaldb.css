@@ -54,9 +54,9 @@ option.unlocked {
 	display: inline-block;
 	zoom: 1; /* IE 6 & 7 hack */
 	*display: inline; /* IE 6 & 7 hack */
-	margin-left: 440px;
-	margin-top: 34px;
-	font: 30px verdana, arial, helvetica, sans-serif;
+	margin-left: 420px;
+	margin-top: 38px;
+	font: 24px verdana, arial, helvetica, sans-serif;
 }
 
 .pageHeader .content a:link, .pageHeader .content a:visited, .pageHeader .content a:hover {

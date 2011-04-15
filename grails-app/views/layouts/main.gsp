@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="pageHeader">
-	<div class="content">Capturing <a href="http://www.animaldb.org/wiki/AnimaldbStart" target="_new">Animal DB</a> in <a href="http://www.grails.org" target="_new">Grails</a></div>
+	<div class="content">Creating an <a href="http://www.animaldb.org/wiki/AnimaldbStart" target="_new">Animal DB</a> wizard in <a href="http://www.grails.org" target="_new">Grails</a></div>
 	<div class="twitter">
 		<div id="twitterAuthor"></div>
 		<div id="twitterText"></div>
