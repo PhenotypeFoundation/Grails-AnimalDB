@@ -184,7 +184,7 @@ option.unlocked {
 	zoom: 1; /* IE 6 & 7 hack */
 	*display: inline; /* IE 6 & 7 hack */
 	float: right;
-	margin-top: -5px;
+	margin-top: -7px;
 	text-align: right;
 }
 

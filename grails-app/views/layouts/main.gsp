@@ -45,17 +45,24 @@
 		<div>
 		   <a href="http://twitter.com/share" class="twitter-share-button"
 			  data-url="http://hackathon.nmcdsp.org"
-			  data-text="Checking out this Hackathon project for capturing AnimalDB in Groovy & Grails! #nbic #hackathon #grails #nmc #animaldb"
+			  data-text="Checking out this Hackathon project for creating an AnimalDB wizard in Groovy & Grails! #nbic #hackathon #grails #nmc #animaldb"
 			  data-count="vertical">Tweet</a>
 		</div>
 	</div>
 	<div class="content">
-		Copyright © 2008 - <g:formatDate format="yyyy" date="${new Date()}"/> NBIC, AnimalDB and Netherlands Metabolomics Centre. All rights reserved.
-		<a href="https://trac.nbic.nl/gscf4molgenis/changeset/${meta(name: 'app.build.svn.revision')}" target="_new">Revision ${meta(name: 'app.build.svn.revision')}</a> <a href="https://wiki.nbic.nl/index.php/GSCF_and_Molgenis_Hackathon_project"><img src="${fam.icon(name: 'help')}"/></a>
+		Copyright © 2008 - <g:formatDate format="yyyy" date="${new Date()}"/>
+		<a href="http://www.nbic.nl/" target="_new">NBIC</a>,
+		<a href="http://www.molgenis.org/wiki/GccStart" target="_new">Genomics Coordination Center</a>
+		and
+		<a href="http://www.metabolomicscentre.nl/" target="_new">Netherlands Metabolomics Centre</a>.
+		All rights reserved.
+		<a href="https://trac.nbic.nl/gscf4molgenis/changeset/${meta(name: 'app.build.svn.revision')}" target="_new">Revision ${meta(name: 'app.build.svn.revision')}</a>
+		<a href="https://wiki.nbic.nl/index.php/GSCF_and_Molgenis_Hackathon_project" target="_new"><img src="${fam.icon(name: 'help')}"/></a>
 	</div>
 	<div class="links">
 		<ul><b>Powered by:</b>
 			<li><a href="http://groovy.codehaus.org/" target="_new">Groovy</a> & <a href="http://www.grails.org" target="_new">Grails</a></li>
+			<li><a href="http://www.molgenis.org/" target="_new">Molgenis REST API</a></li>
 			<li><a href="http://www.grails.org/plugin/ajaxflow" target="_new">AjaxFlow</a></li>
 			<li><a href="https://trac.nbic.nl/grails-plugins/browser/gdt/trunk" target="_new">Grails Domain Templates (GDT)</a></li>
 			<li><a href="https://trac.nbic.nl/grails-plugins/browser/gdtimporter/trunk" target="_new">GDT Importer</a></li>
