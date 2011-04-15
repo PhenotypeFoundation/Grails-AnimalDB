@@ -7,6 +7,7 @@
 	<meta property="og:site_name" content="AnimalDB wizard"/>
 	<meta property="og:url" content="${resource(absolute: true)}"/>
 	<meta property="og:description" content="A simple AnimalDB wizard in Grails, developed during a two day NBIC Hackathon in Belgium, April 13/14, 2011"/>
+	<meta property="fb:admins" content="721482421"/>
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'animaldb.css')}"/>
 	<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:javascript library="jquery" plugin="jquery"/>
