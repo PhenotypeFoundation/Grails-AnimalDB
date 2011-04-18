@@ -85,7 +85,7 @@ class MolgenisService {
 			log.info ".added investigation $molgenisInvestigationId"
 
 			investigation.animals.each { animal ->
-				answer = postToMolgenis('observationElement', [name: animal.customId, Investigation: molgenisInvestigationId, __Type: 'Individual'])
+				answer = postToMolgenis('individual', [name: animal.customId, investigation_id: molgenisInvestigationId])
                                 log.info ".added animal $answer.individual.id"
 			}
 
