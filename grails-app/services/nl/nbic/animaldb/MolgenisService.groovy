@@ -44,7 +44,7 @@ class MolgenisService {
 		} catch (Exception e) {
 			// whoops!
 			def message = e.getMessage()
-			throw new Exception("Invalid MOLGENIS response: ${message}")
+			throw new Exception("Invalid MOLGENIS response while POSTing ${entity}: ${message}")
 		}
 	}
 
@@ -85,8 +85,8 @@ class MolgenisService {
 			log.info ".added investigation $molgenisInvestigationId"
 
 			investigation.animals.each { animal ->
-				answer = postToMolgenis('individual', [name: animal.customId, investigation: molgenisInvestigationId])
-				log.info ".added animal $answer.individual.id"
+				answer = postToMolgenis('observationElement', [name: animal.customId, Investigation: molgenisInvestigationId, __Type: 'Individual'])
+                                log.info ".added animal $answer.individual.id"
 			}
 
 			// returned id assigned by MOLGENIS
@@ -94,7 +94,7 @@ class MolgenisService {
 		} catch (Exception e) {
 			def message = e.getMessage()
 
-			throw new Exception("Could not send investigation to Molgenis due to ${message}")
+			throw new Exception("Could not send investigation and/or animals to Molgenis due to ${message}")
 		}
 	}
 
